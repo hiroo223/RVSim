@@ -1,0 +1,701 @@
+<html>
+    <h1>RV32I 命令セット</h1>
+
+<h2>add</h2>
+<p><b>Add</b></p>
+<table border="1" cellspacing="0" cellpadding="5">
+    <tr>
+        <th>31-27</th><th>26-25</th><th>24-20</th><th>19-15</th><th>14-12</th><th>11-7</th><th>6-2</th><th>1-0</th>
+    </tr>
+    <tr>
+        <td>00000</td><td>00</td><td>rs2</td><td>rs1</td><td>000</td><td>rd</td><td>01100</td><td>11</td>
+    </tr>
+</table>
+<p><b>形式:</b> add rd, rs1, rs2</p>
+<p><b>説明:</b> rs1とrs2の内容を加算し、その結果をrdに格納します。</p>
+<p><b>実装:</b> x[rd] = x[rs1] + x[rs2]</p>
+<hr>
+
+<h2>addi</h2>
+<p><b>Add Immediate</b></p>
+<table border="1" cellspacing="0" cellpadding="5">
+    <tr>
+        <th>31-20</th><th>19-15</th><th>14-12</th><th>11-7</th><th>6-2</th><th>1-0</th>
+    </tr>
+    <tr>
+        <td>imm[11:0]</td><td>rs1</td><td>000</td><td>rd</td><td>00100</td><td>11</td>
+    </tr>
+</table>
+<p><b>形式:</b> addi rd, rs1, imm</p>
+<p><b>説明:</b> rs1の内容と即値immを加算し、その結果をrdに格納します。</p>
+<p><b>実装:</b> x[rd] = x[rs1] + sext(imm)</p>
+<hr>
+
+<h2>and</h2>
+<p><b>Bitwise AND</b></p>
+<table border="1" cellspacing="0" cellpadding="5">
+    <tr>
+        <th>31-27</th><th>26-25</th><th>24-20</th><th>19-15</th><th>14-12</th><th>11-7</th><th>6-2</th><th>1-0</th>
+    </tr>
+    <tr>
+        <td>00000</td><td>00</td><td>rs2</td><td>rs1</td><td>111</td><td>rd</td><td>01100</td><td>11</td>
+    </tr>
+</table>
+<p><b>形式:</b> and rd, rs1, rs2</p>
+<p><b>説明:</b> rs1とrs2の内容のビットごとのAND演算を行い、その結果をrdに格納します。</p>
+<p><b>実装:</b> x[rd] = x[rs1] & x[rs2]</p>
+<hr>
+
+<h2>andi</h2>
+<p><b>Bitwise AND Immediate</b></p>
+<table border="1" cellspacing="0" cellpadding="5">
+    <tr>
+        <th>31-20</th><th>19-15</th><th>14-12</th><th>11-7</th><th>6-2</th><th>1-0</th>
+    </tr>
+    <tr>
+        <td>imm[11:0]</td><td>rs1</td><td>111</td><td>rd</td><td>00100</td><td>11</td>
+    </tr>
+</table>
+<p><b>形式:</b> andi rd, rs1, imm</p>
+<p><b>説明:</b> rs1の内容と即値immのビットごとのAND演算を行い、その結果をrdに格納します。</p>
+<p><b>実装:</b> x[rd] = x[rs1] & sext(imm)</p>
+<hr>
+
+<h2>auipc</h2>
+<p><b>Add Upper Immediate to PC</b></p>
+<table border="1" cellspacing="0" cellpadding="5">
+    <tr>
+        <th>31-27</th><th>26-25</th><th>24-20</th><th>19-15</th><th>14-12</th><th>11-7</th><th>6-2</th><th>1-0</th>
+    </tr>
+    <tr>
+        <td>imm[31:12]</td><td>00</td><td>00</td><td>rd</td><td>00</td><td>00</td><td>00101</td><td>11</td>
+    </tr>
+</table>
+<p><b>形式:</b> auipc rd, imm</p>
+<p><b>説明:</b> 現在のPC値に即値immの上位20ビットを加算し、その結果をrdに格納します。</p>
+<p><b>実装:</b> x[rd] = pc + sext(imm[31:12] << 12)</p>
+<hr>
+
+<h2>beq</h2>
+<p><b>Branch if Equal</b></p>
+<table border="1" cellspacing="0" cellpadding="5">
+    <tr>
+        <th>31-27</th><th>26-25</th><th>24-20</th><th>19-15</th><th>14-12</th><th>11-7</th><th>6-2</th><th>1-0</th>
+    </tr>
+    <tr>
+        <td>offset[12|10:5]</td><td>00</td><td>rs2</td><td>rs1</td><td>000</td><td>offset[4:1|11]</td><td>11000</td><td>11</td>
+    </tr>
+</table>
+<p><b>形式:</b> beq rs1, rs2, offset</p>
+<p><b>説明:</b> rs1とrs2の内容が等しい場合、PCにoffsetを加算して分岐します。</p>
+<p><b>実装:</b> if (x[rs1] == x[rs2]) PC += sext(offset)</p>
+<hr>
+
+<h2>bge</h2>
+<p><b>Branch if Greater or Equal</b></p>
+<table border="1" cellspacing="0" cellpadding="5">
+    <tr>
+        <th>31-27</th><th>26-25</th><th>24-20</th><th>19-15</th><th>14-12</th><th>11-7</th><th>6-2</th><th>1-0</th>
+    </tr>
+    <tr>
+        <td>offset[12|10:5]</td><td>00</td><td>rs2</td><td>rs1</td><td>101</td><td>offset[4:1|11]</td><td>11000</td><td>11</td>
+    </tr>
+</table>
+<p><b>形式:</b> bge rs1, rs2, offset</p>
+<p><b>説明:</b> rs1がrs2以上の場合、PCにoffsetを加算して分岐します。</p>
+<p><b>実装:</b> if (x[rs1] >= x[rs2]) PC += sext(offset)</p>
+<hr>
+
+<h2>bgeu</h2>
+<p><b>Branch if Greater or Equal Unsigned</b></p>
+<table border="1" cellspacing="0" cellpadding="5">
+    <tr>
+        <th>31-27</th><th>26-25</th><th>24-20</th><th>19-15</th><th>14-12</th><th>11-7</th><th>6-2</th><th>1-0</th>
+    </tr>
+    <tr>
+        <td>offset[12|10:5]</td><td>00</td><td>rs2</td><td>rs1</td><td>111</td><td>offset[4:1|11]</td><td>11000</td><td>11</td>
+    </tr>
+</table>
+<p><b>形式:</b> bgeu rs1, rs2, offset</p>
+<p><b>説明:</b> rs1がrs2以上（符号なし比較）の場合、PCにoffsetを加算して分岐します。</p>
+<p><b>実装:</b> if (x[rs1] >=u x[rs2]) PC += sext(offset)</p>
+<hr>
+
+<h2>blt</h2>
+<p><b>Branch if Less Than</b></p>
+<table border="1" cellspacing="0" cellpadding="5">
+    <tr>
+        <th>31-27</th><th>26-25</th><th>24-20</th><th>19-15</th><th>14-12</th><th>11-7</th><th>6-2</th><th>1-0</th>
+    </tr>
+    <tr>
+        <td>offset[12|10:5]</td><td>00</td><td>rs2</td><td>rs1</td><td>100</td><td>offset[4:1|11]</td><td>11000</td><td>11</td>
+    </tr>
+</table>
+<p><b>形式:</b> blt rs1, rs2, offset</p>
+<p><b>説明:</b> rs1がrs2より小さい場合、PCにoffsetを加算して分岐します。</p>
+<p><b>実装:</b> if (x[rs1] < x[rs2]) PC += sext(offset)</p>
+<hr>
+
+<h2>bltu</h2>
+<p><b>Branch if Less Than Unsigned</b></p>
+<table border="1" cellspacing="0" cellpadding="5">
+    <tr>
+        <th>31-27</th><th>26-25</th><th>24-20</th><th>19-15</th><th>14-12</th><th>11-7</th><th>6-2</th><th>1-0</th>
+    </tr>
+    <tr>
+        <td>offset[12|10:5]</td><td>00</td><td>rs2</td><td>rs1</td><td>110</td><td>offset[4:1|11]</td><td>11000</td><td>11</td>
+    </tr>
+</table>
+<p><b>形式:</b> bltu rs1, rs2, offset</p>
+<p><b>説明:</b> rs1がrs2より小さい（符号なし比較）の場合、PCにoffsetを加算して分岐します。</p>
+<p><b>実装:</b> if (x[rs1] <u x[rs2]) PC += sext(offset)</p>
+<hr>
+
+<h2>bne</h2>
+<p><b>Branch if Not Equal</b></p>
+<table border="1" cellspacing="0" cellpadding="5">
+    <tr>
+        <th>31-27</th><th>26-25</th><th>24-20</th><th>19-15</th><th>14-12</th><th>11-7</th><th>6-2</th><th>1-0</th>
+    </tr>
+    <tr>
+        <td>offset[12|10:5]</td><td>00</td><td>rs2</td><td>rs1</td><td>001</td><td>offset[4:1|11]</td><td>11000</td><td>11</td>
+    </tr>
+</table>
+<p><b>形式:</b> bne rs1, rs2, offset</p>
+<p><b>説明:</b> rs1とrs2の内容が等しくない場合、PCにoffsetを加算して分岐します。</p>
+<p><b>実装:</b> if (x[rs1] != x[rs2]) PC += sext(offset)</p>
+<hr>
+
+<h2>csrrc</h2>
+<p><b>Atomic Read and Clear Bits in CSR</b></p>
+<table border="1" cellspacing="0" cellpadding="5">
+    <tr>
+        <th>31-27</th><th>26-25</th><th>24-20</th><th>19-15</th><th>14-12</th><th>11-7</th><th>6-2</th><th>1-0</th>
+    </tr>
+    <tr>
+        <td>csr[11:0]</td><td>rs1</td><td>011</td><td>rd</td><td>11100</td><td>11</td>
+    </tr>
+</table>
+<p><b>形式:</b> csrrc rd, csr, rs1</p>
+<p><b>説明:</b> CSR（制御状態レジスタ）の値を読み取り、rs1に指定されたビットをクリアし、その結果をCSRに書き戻します。元の値はrdに格納されます。</p>
+<p><b>実装:</b> x[rd] = CSR[csr]; CSR[csr] &= ~(x[rs1])</p>
+<hr>
+
+<h2>csrrs</h2>
+<p><b>Atomic Read and Set Bits in CSR</b></p>
+<table border="1" cellspacing="0" cellpadding="5">
+    <tr>
+        <th>31-27</th><th>26-25</th><th>24-20</th><th>19-15</th><th>14-12</th><th>11-7</th><th>6-2</th><th>1-0</th>
+    </tr>
+    <tr>
+        <td>csr[11:0]</td><td>rs1</td><td>010</td><td>rd</td><td>11100</td><td>11</td>
+    </tr>
+</table>
+<p><b>形式:</b> csrrs rd, csr, rs1</p>
+<p><b>説明:</b> CSR（制御状態レジスタ）の値を読み取り、rs1に指定されたビットをセットし、その結果をCSRに書き戻します。元の値はrdに格納されます。</p>
+<p><b>実装:</b> x[rd] = CSR[csr]; CSR[csr] |= x[rs1]</p>
+<hr>
+
+<h2>csrrsi</h2>
+<p><b>Atomic Read and Set Bits in CSR Immediate</b></p>
+<table border="1" cellspacing="0" cellpadding="5">
+    <tr>
+        <th>31-27</th><th>26-25</th><th>24-20</th><th>19-15</th><th>14-12</th><th>11-7</th><th>6-2</th><th>1-0</th>
+    </tr>
+    <tr>
+        <td>csr[11:0]</td><td>zimm</td><td>110</td><td>rd</td><td>11100</td><td>11</td>
+    </tr>
+</table>
+<p><b>形式:</b> csrrsi rd, csr, zimm</p>
+<p><b>説明:</b> CSR（制御状態レジスタ）の値を読み取り、即値zimmに指定されたビットをセットし、その結果をCSRに書き戻します。元の値はrdに格納されます。</p>
+<p><b>実装:</b> x[rd] = CSR[csr]; CSR[csr] |= zimm</p>
+<hr>
+
+<h2>csrrw</h2>
+<p><b>Atomic Read and Write CSR</b></p>
+<table border="1" cellspacing="0" cellpadding="5">
+    <tr>
+        <th>31-27</th><th>26-25</th><th>24-20</th><th>19-15</th><th>14-12</th><th>11-7</th><th>6-2</th><th>1-0</th>
+    </tr>
+    <tr>
+        <td>csr[11:0]</td><td>rs1</td><td>001</td><td>rd</td><td>11100</td><td>11</td>
+    </tr>
+</table>
+<p><b>形式:</b> csrrw rd, csr, rs1</p>
+<p><b>説明:</b> CSR（制御状態レジスタ）の値を読み取り、新しい値をrs1に基づいてCSRに書き込みます。元の値はrdに格納されます。</p>
+<p><b>実装:</b> x[rd] = CSR[csr]; CSR[csr] = x[rs1]</p>
+<hr>
+
+<h2>csrrwi</h2>
+<p><b>Atomic Read and Write CSR Immediate</b></p>
+<table border="1" cellspacing="0" cellpadding="5">
+    <tr>
+        <th>31-27</th><th>26-25</th><th>24-20</th><th>19-15</th><th>14-12</th><th>11-7</th><th>6-2</th><th>1-0</th>
+    </tr>
+    <tr>
+        <td>csr[11:0]</td><td>zimm</td><td>101</td><td>rd</td><td>11100</td><td>11</td>
+    </tr>
+</table>
+<p><b>形式:</b> csrrwi rd, csr, zimm</p>
+<p><b>説明:</b> CSR（制御状態レジスタ）の値を読み取り、即値zimmに基づいてCSRに新しい値を書き込みます。元の値はrdに格納されます。</p>
+<p><b>実装:</b> x[rd] = CSR[csr]; CSR[csr] = zimm</p>
+<hr>
+
+<h2>ebreak</h2>
+<p><b>Environment Break</b></p>
+<table border="1" cellspacing="0" cellpadding="5">
+    <tr>
+        <th>31-20</th><th>19-15</th><th>14-12</th><th>11-7</th><th>6-2</th><th>1-0</th>
+    </tr>
+    <tr>
+        <td>000000000001</td><td>00000</td><td>000</td><td>00000</td><td>11100</td><td>11</td>
+    </tr>
+</table>
+<p><b>形式:</b> ebreak</p>
+<p><b>説明:</b> ブレークポイント例外を発生させます。主にデバッグ用に使用されます。</p>
+<p><b>実装:</b> ブレークポイント例外を発生</p>
+<hr>
+
+<h2>ecall</h2>
+<p><b>Environment Call</b></p>
+<table border="1" cellspacing="0" cellpadding="5">
+    <tr>
+        <th>31-20</th><th>19-15</th><th>14-12</th><th>11-7</th><th>6-2</th><th>1-0</th>
+    </tr>
+    <tr>
+        <td>000000000000</td><td>00000</td><td>000</td><td>00000</td><td>11100</td><td>11</td>
+    </tr>
+</table>
+<p><b>形式:</b> ecall</p>
+<p><b>説明:</b> 環境呼び出し例外を発生させます。OSなどのシステムレベルのサービス要求に使用されます。</p>
+<p><b>実装:</b> 環境呼び出し例外を発生</p>
+<hr>
+
+<h2>fence</h2>
+<p><b>Fence</b></p>
+<table border="1" cellspacing="0" cellpadding="5">
+    <tr>
+        <th>31-20</th><th>19-15</th><th>14-12</th><th>11-7</th><th>6-2</th><th>1-0</th>
+    </tr>
+    <tr>
+        <td>pred|succ</td><td>00000</td><td>000</td><td>00000</td><td>00011</td><td>11</td>
+    </tr>
+</table>
+<p><b>形式:</b> fence pred, succ</p>
+<p><b>説明:</b> メモリオペレーションの順序を制御します。predとsuccで順序を指定します。</p>
+<p><b>実装:</b> メモリ順序を保証</p>
+<hr>
+
+<h2>fence.i</h2>
+<p><b>Fence for Instruction</b></p>
+<table border="1" cellspacing="0" cellpadding="5">
+    <tr>
+        <th>31-20</th><th>19-15</th><th>14-12</th><th>11-7</th><th>6-2</th><th>1-0</th>
+    </tr>
+    <tr>
+        <td>000000000000</td><td>00000</td><td>001</td><td>00000</td><td>00011</td><td>11</td>
+    </tr>
+</table>
+<p><b>形式:</b> fence.i</p>
+<p><b>説明:</b> 命令キャッシュを無効化し、新しい命令フェッチの前にメモリの更新を保証します。</p>
+<p><b>実装:</b> 命令キャッシュの同期</p>
+<hr>
+
+<h2>jal</h2>
+<p><b>Jump and Link</b></p>
+<table border="1" cellspacing="0" cellpadding="5">
+    <tr>
+        <th>31-20</th><th>19-15</th><th>14-12</th><th>11-7</th><th>6-2</th><th>1-0</th>
+    </tr>
+    <tr>
+        <td>offset[20|10:1|11|19:12]</td><td>00</td><td>00</td><td>rd</td><td>11011</td><td>11</td>
+    </tr>
+</table>
+<p><b>形式:</b> jal rd, offset</p>
+<p><b>説明:</b> PCをPC + offsetに設定し、戻りアドレスをrdに格納します。</p>
+<p><b>実装:</b> x[rd] = PC + 4; PC += sext(offset)</p>
+<hr>
+
+<h2>jalr</h2>
+<p><b>Jump and Link Register</b></p>
+<table border="1" cellspacing="0" cellpadding="5">
+    <tr>
+        <th>31-20</th><th>19-15</th><th>14-12</th><th>11-7</th><th>6-2</th><th>1-0</th>
+    </tr>
+    <tr>
+        <td>offset[11:0]</td><td>rs1</td><td>000</td><td>rd</td><td>11001</td><td>11</td>
+    </tr>
+</table>
+<p><b>形式:</b> jalr rd, rs1, offset</p>
+<p><b>説明:</b> PCをrs1 + offsetに設定し、戻りアドレスをrdに格納します。</p>
+<p><b>実装:</b> x[rd] = PC + 4; PC = (x[rs1] + sext(offset)) & ~1</p>
+<hr>
+
+<h2>lb</h2>
+
+<p><b>Load Byte</b></p>
+<table border="1" cellspacing="0" cellpadding="5">
+    <tr>
+        <th>31-20</th><th>19-15</th><th>14-12</th><th>11-7</th><th>6-2</th><th>1-0</th>
+    </tr>
+    <tr>
+        <td>offset[11:0]</td><td>rs1</td><td>000</td><td>rd</td><td>00000</td><td>11</td>
+    </tr>
+</table>
+<p><b>形式:</b> lb rd, offset(rs1)</p>
+<p><b>説明:</b> メモリから1バイトを読み込み、符号拡張してrdに格納します。</p>
+<p><b>実装:</b> x[rd] = sext(M[x[rs1] + sext(offset)][0:7])</p>
+<hr>
+
+<h2>lbu</h2>
+<p><b>Load Byte Unsigned</b></p>
+<table border="1" cellspacing="0" cellpadding="5">
+    <tr>
+        <th>31-20</th><th>19-15</th><th>14-12</th><th>11-7</th><th>6-2</th><th>1-0</th>
+    </tr>
+    <tr>
+        <td>offset[11:0]</td><td>rs1</td><td>100</td><td>rd</td><td>00000</td><td>11</td>
+    </tr>
+</table>
+<p><b>形式:</b> lbu rd, offset(rs1)</p>
+<p><b>説明:</b> メモリから1バイトを読み込み、符号なしでrdに格納します。</p>
+<p><b>実装:</b> x[rd] = M[x[rs1] + sext(offset)][0:7]</p>
+<hr>
+
+<h2>lh</h2>
+<p><b>Load Halfword</b></p>
+<table border="1" cellspacing="0" cellpadding="5">
+    <tr>
+        <th>31-20</th><th>19-15</th><th>14-12</th><th>11-7</th><th>6-2</th><th>1-0</th>
+    </tr>
+    <tr>
+        <td>offset[11:0]</td><td>rs1</td><td>001</td><td>rd</td><td>00000</td><td>11</td>
+    </tr>
+</table>
+<p><b>形式:</b> lh rd, offset(rs1)</p>
+<p><b>説明:</b> メモリから2バイトを読み込み、符号拡張してrdに格納します。</p>
+<p><b>実装:</b> x[rd] = sext(M[x[rs1] + sext(offset)][0:15])</p>
+<hr>
+
+<h2>lhu</h2>
+<p><b>Load Halfword Unsigned</b></p>
+<table border="1" cellspacing="0" cellpadding="5">
+    <tr>
+        <th>31-20</th><th>19-15</th><th>14-12</th><th>11-7</th><th>6-2</th><th>1-0</th>
+    </tr>
+    <tr>
+        <td>offset[11:0]</td><td>rs1</td><td>101</td><td>rd</td><td>00000</td><td>11</td>
+    </tr>
+</table>
+<p><b>形式:</b> lhu rd, offset(rs1)</p>
+<p><b>説明:</b> メモリから2バイトを読み込み、符号なしでrdに格納します。</p>
+<p><b>実装:</b> x[rd] = M[x[rs1] + sext(offset)][0:15]</p>
+<hr>
+
+<h2>lui</h2>
+<p><b>Load Upper Immediate</b></p>
+<table border="1" cellspacing="0" cellpadding="5">
+    <tr>
+        <th>31-27</th><th>26-25</th><th>24-20</th><th>19-15</th><th>14-12</th><th>11-7</th><th>6-2</th><th>1-0</th>
+    </tr>
+    <tr>
+        <td>imm[31:12]</td><td>00</td><td>00</td><td>rd</td><td>00</td><td>00</td><td>01101</td><td>11</td>
+    </tr>
+</table>
+<p><b>形式:</b> lui rd, imm</p>
+<p><b>説明:</b> 即値immの上位20ビットをrdにロードし、下位12ビットをゼロで埋めます。</p>
+<p><b>実装:</b> x[rd] = sext(immediate[31:12] << 12)</p>
+<hr>
+
+<h2>lw</h2>
+<p><b>Load Word</b></p>
+<table border="1" cellspacing="0" cellpadding="5">
+    <tr>
+        <th>31-20</th><th>19-15</th><th>14-12</th><th>11-7</th><th>6-2</th><th>1-0</th>
+    </tr>
+    <tr>
+        <td>offset[11:0]</td><td>rs1</td><td>010</td><td>rd</td><td>00000</td><td>11</td>
+    </tr>
+</table>
+<p><b>形式:</b> lw rd, offset(rs1)</p>
+<p><b>説明:</b> メモリから4バイトを読み込み、rdに格納します。</p>
+<p><b>実装:</b> x[rd] = M[x[rs1] + sext(offset)][0:31]</p>
+<hr>
+
+<h2>or</h2>
+<p><b>Bitwise OR</b></p>
+<table border="1" cellspacing="0" cellpadding="5">
+    <tr>
+        <th>31-27</th><th>26-25</th><th>24-20</th><th>19-15</th><th>14-12</th><th>11-7</th><th>6-2</th><th>1-0</th>
+    </tr>
+    <tr>
+        <td>00</td><td>00</td><td>rs2</td><td>rs1</td><td>110</td><td>rd</td><td>01100</td><td>11</td>
+    </tr>
+</table>
+<p><b>形式:</b> or rd, rs1, rs2</p>
+<p><b>説明:</b> rs1とrs2のビットごとのOR演算を行い、その結果をrdに格納します。</p>
+<p><b>実装:</b> x[rd] = x[rs1] | x[rs2]</p>
+<hr>
+
+<h2>ori</h2>
+<p><b>Bitwise OR Immediate</b></p>
+<table border="1" cellspacing="0" cellpadding="5">
+    <tr>
+        <th>31-20</th><th>19-15</th><th>14-12</th><th>11-7</th><th>6-2</th><th>1-0</th>
+    </tr>
+    <tr>
+        <td>imm[11:0]</td><td>rs1</td><td>110</td><td>rd</td><td>00100</td><td>11</td>
+    </tr>
+</table>
+<p><b>形式:</b> ori rd, rs1, imm</p>
+<p><b>説明:</b> rs1と即値immのビットごとのOR演算を行い、その結果をrdに格納します。</p>
+<p><b>実装:</b> x[rd] = x[rs1] | sext(imm)</p>
+<hr>
+
+<h2>sb</h2>
+<p><b>Store Byte</b></p>
+<table border="1" cellspacing="0" cellpadding="5">
+    <tr>
+        <th>31-25</th><th>24-20</th><th>19-15</th><th>14-12</th><th>11-7</th><th>6-2</th><th>1-0</th>
+    </tr>
+    <tr>
+        <td>offset[11:5]</td><td>rs2</td><td>rs1</td><td>000</td><td>offset[4:0]</td><td>01000</td><td>11</td>
+    </tr>
+</table>
+<p><b>形式:</b> sb rs2, offset(rs1)</p>
+<p><b>説明:</b> rs2の下位8ビットをメモリの指定されたアドレスに格納します。</p>
+<p><b>実装:</b> M[x[rs1] + sext(offset)][0:7] = x[rs2][0:7]</p>
+<hr>
+
+<h2>sh</h2>
+<p><b>Store Halfword</b></p>
+<table border="1" cellspacing="0" cellpadding="5">
+    <tr>
+        <th>31-25</th><th>24-20</th><th>19-15</th><th>14-12</th><th>11-7</th><th>6-2</th><th>1-0</th>
+    </tr>
+    <tr>
+        <td>offset[11:5]</td><td>rs2</td><td>rs1</td><td>001</td><td>offset[4:0]</td><td>01000</td><td>11</td>
+    </tr>
+</table>
+<p><b>形式:</b> sh rs2, offset(rs1)</p>
+<p><b>説明:</b> rs2の下位16ビットをメモリの指定されたアドレスに格納します。</p>
+<p><b>実装:</b> M[x[rs1] + sext(offset)][0:15] = x[rs2][0:15]</p>
+<hr>
+
+<h2>sll</h2>
+<p><b>Shift Left Logical</b></p>
+<table border="1" cellspacing="0" cellpadding="5">
+    <tr>
+        <th>31-27</th><th>26-25</th><th>24-20</th><th>19-15</th><th>14-12</th><th>11-7</th><th>6-2</th><th>1-0</th>
+    </tr>
+    <tr>
+        <td>00</td><td>00</td><td>rs2</td><td>rs1</td><td>001</td><td>rd</td><td>01100</td><td>11</td>
+    </tr>
+</table>
+<p><b>形式:</b> sll rd, rs1, rs2</p>
+<p><b>説明:</b> rs1の内容をrs2の下位5ビットで指定されたビット数だけ左に論理シフトし、結果をrdに格納します。</p>
+<p><b>実装:</b> x[rd] = x[rs1] << x[rs2][0:4]</p>
+<hr>
+
+<h2>slli</h2>
+<p><b>Shift Left Logical Immediate</b></p>
+<table border="1" cellspacing="0" cellpadding="5">
+    <tr>
+        <th>31-20</th><th>19-15</th><th>14-12</th><th>11-7</th><th>6-2</th><th>1-0</th>
+    </tr>
+    <tr>
+        <td>0000000|shamt</td><td>rs1</td><td>001</td><td>rd</td><td>00100</td><td>11</td>
+    </tr>
+</table>
+<p><b>形式:</b> slli rd, rs1, shamt</p>
+<p><b>説明:</b> rs1の内容を即値shamtで指定されたビット数だけ左に論理シフトし、結果をrdに格納します。</p>
+<p><b>実装:</b> x[rd] = x[rs1] << shamt</p>
+<hr>
+
+<h2>slt</h2>
+<p><b>Set Less Than</b></p>
+<table border="1" cellspacing="0" cellpadding="5">
+    <tr>
+        <th>31-27</th><th>26-25</th><th>24-20</th><th>19-15</th><th>14-12</th><th>11-7</th><th>6-2</th><th>1-0</th>
+    </tr>
+    <tr>
+        <td>00</td><td>00</td><td>rs2</td><td>rs1</td><td>010</td><td>rd</td><td>01100</td><td>11</td>
+    </tr>
+</table>
+<p><b>形式:</b> slt rd, rs1, rs2</p>
+<p><b>説明:</b> rs1がrs2より小さい場合、rdに1を格納します。それ以外の場合は0を格納します。</p>
+<p><b>実装:</b> x[rd] = (x[rs1] < x[rs2]) ? 1 : 0</p>
+<hr>
+
+<h2>slti</h2>
+<p><b>Set Less Than Immediate</b></p>
+<table border="1" cellspacing="0" cellpadding="5">
+    <tr>
+        <th>31-27</th><th>26-25</th><th>24-20</th><th>19-15</th><th>14-12</th><th>11-7</th><th>6-2</th><th>1-0</th>
+    </tr>
+    <tr>
+        <td>00</td><td>00</td><td>imm[11:0]</td><td>rs1</td><td>010</td><td>rd</td><td>00100</td><td>11</td>
+    </tr>
+</table>
+<p><b>形式:</b> slti rd, rs1, imm</p>
+<p><b>説明:</b> rs1が即値immより小さい場合、rdに1を格納します。それ以外の場合は0を格納します。</p>
+<p><b>実装:</b> x[rd] = (x[rs1] < imm) ? 1 : 0</p>
+<hr>
+
+<h2>sltiu</h2>
+<p><b>Set Less Than Immediate Unsigned</b></p>
+<table border="1" cellspacing="0" cellpadding="5">
+    <tr>
+        <th>31-27</th><th>26-25</th><th>24-20</th><th>19-15</th><th>14-12</th><th>11-7</th><th>6-2</th><th>1-0</th>
+    </tr>
+    <tr>
+        <td>00</td><td>00</td><td>imm[11:0]</td><td>rs1</td><td>011</td><td>rd</td><td>00100</td><td>11</td>
+    </tr>
+</table>
+<p><b>形式:</b> sltiu rd, rs1, imm</p>
+<p><b>説明:</b> rs1が即値immより小さい場合（符号なし比較）、rdに1を格納します。それ以外の場合は0を格納します。</p>
+<p><b>実装:</b> x[rd] = (unsigned(x[rs1]) < unsigned(imm)) ? 1 : 0</p>
+<hr>
+
+<h2>sltu</h2>
+<p><b>Set Less Than Unsigned</b></p>
+<table border="1" cellspacing="0" cellpadding="5">
+    <tr>
+        <th>31-27</th><th>26-25</th><th>24-20</th><th>19-15</th><th>14-12</th><th>11-7</th><th>6-2</th><th>1-0</th>
+    </tr>
+    <tr>
+        <td>00</td><td>00</td><td>rs2</td><td>rs1</td><td>011</td><td>rd</td><td>01100</td><td>11</td>
+    </tr>
+</table>
+<p><b>形式:</b> sltu rd, rs1, rs2</p>
+<p><b>説明:</b> rs1がrs2より小さい場合（符号なし比較）、rdに1を格納します。それ以外の場合は0を格納します。</p>
+<p><b>実装:</b> x[rd] = (unsigned(x[rs1]) < unsigned(x[rs2])) ? 1 : 0</p>
+<hr>
+
+<h2>sra</h2>
+<p><b>Shift Right Arithmetic</b></p>
+<table border="1" cellspacing="0" cellpadding="5">
+    <tr>
+        <th>31-27</th><th>26-25</th><th>24-20</th><th>19-15</th><th>14-12</th><th>11-7</th><th>6-2</th><th>1-0</th>
+    </tr>
+    <tr>
+        <td>00</td><td>00</td><td>rs2</td><td>rs1</td><td>101</td><td>rd</td><td>01100</td><td>11</td>
+    </tr>
+</table>
+<p><b>形式:</b> sra rd, rs1, rs2</p>
+<p><b>説明:</b> rs1の値を算術右シフトし、rdに格納します。</p>
+<p><b>実装:</b> x[rd] = x[rs1] >> x[rs2]（算術シフト）</p>
+<hr>
+
+<h2>srai</h2>
+<p><b>Shift Right Arithmetic Immediate</b></p>
+<table border="1" cellspacing="0" cellpadding="5">
+    <tr>
+        <th>31-27</th><th>26-25</th><th>24-20</th><th>19-15</th><th>14-12</th><th>11-7</th><th>6-2</th><th>1-0</th>
+    </tr>
+    <tr>
+        <td>00</td><td>00</td><td>shamt</td><td>rs1</td><td>101</td><td>rd</td><td>00100</td><td>11</td>
+    </tr>
+</table>
+<p><b>形式:</b> srai rd, rs1, shamt</p>
+<p><b>説明:</b> rs1の値を即値shamt分だけ算術右シフトし、rdに格納します。</p>
+<p><b>実装:</b> x[rd] = x[rs1] >> shamt（算術シフト）</p>
+<hr>
+
+<h2>sret</h2>
+<p><b>Supervisor Return</b></p>
+<p><b>説明:</b> Supervisorモードから戻ります。</p>
+<p><b>実装:</b> 現在のスーパーバイザモードの状態に応じて戻り動作を行います。</p>
+<hr>
+
+<h2>srl</h2>
+<p><b>Shift Right Logical</b></p>
+<table border="1" cellspacing="0" cellpadding="5">
+    <tr>
+        <th>31-27</th><th>26-25</th><th>24-20</th><th>19-15</th><th>14-12</th><th>11-7</th><th>6-2</th><th>1-0</th>
+    </tr>
+    <tr>
+        <td>00</td><td>00</td><td>rs2</td><td>rs1</td><td>101</td><td>rd</td><td>01100</td><td>11</td>
+    </tr>
+</table>
+<p><b>形式:</b> srl rd, rs1, rs2</p>
+<p><b>説明:</b> rs1の値を論理右シフトし、rdに格納します。</p>
+<p><b>実装:</b> x[rd] = x[rs1] >>> x[rs2]（論理シフト）</p>
+<hr>
+
+<h2>srli</h2>
+<p><b>Shift Right Logical Immediate</b></p>
+<table border="1" cellspacing="0" cellpadding="5">
+    <tr>
+        <th>31-27</th><th>26-25</th><th>24-20</th><th>19-15</th><th>14-12</th><th>11-7</th><th>6-2</th><th>1-0</th>
+    </tr>
+    <tr>
+        <td>00</td><td>00</td><td>shamt</td><td>rs1</td><td>101</td><td>rd</td><td>00100</td><td>11</td>
+    </tr>
+</table>
+<p><b>形式:</b> srli rd, rs1, shamt</p>
+<p><b>説明:</b> rs1の値を即値shamt分だけ論理右シフトし、rdに格納します。</p>
+<p><b>実装:</b> x[rd] = x[rs1] >>> shamt（論理シフト）</p>
+<hr>
+
+<h2>sub</h2>
+<p><b>Subtract</b></p>
+<table border="1" cellspacing="0" cellpadding="5">
+    <tr>
+        <th>31-27</th><th>26-25</th><th>24-20</th><th>19-15</th><th>14-12</th><th>11-7</th><th>6-2</th><th>1-0</th>
+    </tr>
+    <tr>
+        <td>00</td><td>00</td><td>rs2</td><td>rs1</td><td>000</td><td>rd</td><td>01100</td><td>11</td>
+    </tr>
+</table>
+<p><b>形式:</b> sub rd, rs1, rs2</p>
+<p><b>説明:</b> rs1からrs2を減算し、結果をrdに格納します。</p>
+<p><b>実装:</b> x[rd] = x[rs1] - x[rs2]</p>
+<hr>
+
+<h2>sw</h2>
+<p><b>Store Word</b></p>
+<table border="1" cellspacing="0" cellpadding="5">
+    <tr>
+        <th>31-27</th><th>26-25</th><th>24-20</th><th>19-15</th><th>14-12</th><th>11-7</th><th>6-2</th><th>1-0</th>
+    </tr>
+    <tr>
+        <td>00</td><td>00</td><td>imm[11:5]</td><td>rs1</td><td>010</td><td>rs2</td><td>01000</td><td>11</td>
+    </tr>
+</table>
+<p><b>形式:</b> sw rs2, offset(rs1)</p>
+<p><b>説明:</b> rs2の値をrs1+offsetのアドレスに格納します。</p>
+<p><b>実装:</b> memory[x[rs1] + offset] = x[rs2]</p>
+<hr>
+
+<h2>xor</h2>
+<p><b>Exclusive OR</b></p>
+<table border="1" cellspacing="0" cellpadding="5">
+    <tr>
+        <th>31-27</th><th>26-25</th><th>24-20</th><th>19-15</th><th>14-12</th><th>11-7</th><th>6-2</th><th>1-0</th>
+    </tr>
+    <tr>
+        <td>00</td><td>00</td><td>rs2</td><td>rs1</td><td>100</td><td>rd</td><td>01100</td><td>11</td>
+    </tr>
+</table>
+<p><b>形式:</b> xor rd, rs1, rs2</p>
+<p><b>説明:</b> rs1とrs2の排他的論理和を計算し、rdに格納します。</p>
+<p><b>実装:</b> x[rd] = x[rs1] ^ x[rs2]</p>
+<hr>
+
+<h2>xori</h2>
+<p><b>Exclusive OR Immediate</b></p>
+<table border="1" cellspacing="0" cellpadding="5">
+    <tr>
+        <th>31-27</th><th>26-25</th><th>24-20</th><th>19-15</th><th>14-12</th><th>11-7</th><th>6-2</th><th>1-0</th>
+    </tr>
+    <tr>
+        <td>00</td><td>00</td><td>imm[11:0]</td><td>rs1</td><td>100</td><td>rd</td><td>00100</td><td>11</td>
+    </tr>
+</table>
+<p><b>形式:</b> xori rd, rs1, imm</p>
+<p><b>説明:</b> rs1と即値immの排他的論理和を計算し、rdに格納します。</p>
+<p><b>実装:</b> x[rd] = x[rs1] ^ imm</p>
+<hr>
+
+</html>

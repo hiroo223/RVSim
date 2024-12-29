@@ -1,0 +1,122 @@
+<html>
+	<h1>RV32M 命令セット</h1>
+    <h2>mul</h2>
+    <p><b>Multiply</b></p>
+    <table border="1" cellspacing="0" cellpadding="5">
+        <tr>
+            <th>31-27</th><th>26-25</th><th>24-20</th><th>19-15</th><th>14-12</th><th>11-7</th><th>6-2</th><th>1-0</th>
+        </tr>
+        <tr>
+            <td>00000</td><td>01</td><td>rs2</td><td>rs1</td><td>000</td><td>rd</td><td>01100</td><td>11</td>
+        </tr>
+    </table>
+    <p><b>形式:</b> mul rd, rs1, rs2</p>
+    <p><b>説明:</b> rs1とrs2の内容を32ビット乗算し、結果の下位32ビットをrdに格納します。</p>
+    <p><b>実装:</b> x[rd] = (x[rs1] * x[rs2])[0:31]</p>
+    <hr>
+
+    <h2>mulh</h2>
+    <p><b>Multiply High</b></p>
+    <table border="1" cellspacing="0" cellpadding="5">
+        <tr>
+            <th>31-27</th><th>26-25</th><th>24-20</th><th>19-15</th><th>14-12</th><th>11-7</th><th>6-2</th><th>1-0</th>
+        </tr>
+        <tr>
+            <td>00000</td><td>01</td><td>rs2</td><td>rs1</td><td>001</td><td>rd</td><td>01100</td><td>11</td>
+        </tr>
+    </table>
+    <p><b>形式:</b> mulh rd, rs1, rs2</p>
+    <p><b>説明:</b> rs1とrs2の内容を32ビット符号付き乗算し、結果の上位32ビットをrdに格納します。</p>
+    <p><b>実装:</b> x[rd] = (x[rs1] * x[rs2])[32:63]</p>
+    <hr>
+
+    <h2>mulhsu</h2>
+    <p><b>Multiply High Signed-Unsigned</b></p>
+    <table border="1" cellspacing="0" cellpadding="5">
+        <tr>
+            <th>31-27</th><th>26-25</th><th>24-20</th><th>19-15</th><th>14-12</th><th>11-7</th><th>6-2</th><th>1-0</th>
+        </tr>
+        <tr>
+            <td>00000</td><td>01</td><td>rs2</td><td>rs1</td><td>010</td><td>rd</td><td>01100</td><td>11</td>
+        </tr>
+    </table>
+    <p><b>形式:</b> mulhsu rd, rs1, rs2</p>
+    <p><b>説明:</b> rs1を符号付き、rs2を符号なしで32ビット乗算し、結果の上位32ビットをrdに格納します。</p>
+    <p><b>実装:</b> x[rd] = (signed(x[rs1]) * unsigned(x[rs2]))[32:63]</p>
+    <hr>
+
+    <h2>mulhu</h2>
+    <p><b>Multiply High Unsigned</b></p>
+    <table border="1" cellspacing="0" cellpadding="5">
+        <tr>
+            <th>31-27</th><th>26-25</th><th>24-20</th><th>19-15</th><th>14-12</th><th>11-7</th><th>6-2</th><th>1-0</th>
+        </tr>
+        <tr>
+            <td>00000</td><td>01</td><td>rs2</td><td>rs1</td><td>011</td><td>rd</td><td>01100</td><td>11</td>
+        </tr>
+    </table>
+    <p><b>形式:</b> mulhu rd, rs1, rs2</p>
+    <p><b>説明:</b> rs1とrs2の内容を32ビット符号なし乗算し、結果の上位32ビットをrdに格納します。</p>
+    <p><b>実装:</b> x[rd] = (unsigned(x[rs1]) * unsigned(x[rs2]))[32:63]</p>
+    <hr>
+
+    <h2>div</h2>
+    <p><b>Divide</b></p>
+    <table border="1" cellspacing="0" cellpadding="5">
+        <tr>
+            <th>31-27</th><th>26-25</th><th>24-20</th><th>19-15</th><th>14-12</th><th>11-7</th><th>6-2</th><th>1-0</th>
+        </tr>
+        <tr>
+            <td>00000</td><td>01</td><td>rs2</td><td>rs1</td><td>100</td><td>rd</td><td>01100</td><td>11</td>
+        </tr>
+    </table>
+    <p><b>形式:</b> div rd, rs1, rs2</p>
+    <p><b>説明:</b> rs1をrs2で符号付き除算し、商をrdに格納します。ゼロ除算の場合、結果は未定義です。</p>
+    <p><b>実装:</b> x[rd] = x[rs1] / x[rs2]</p>
+    <hr>
+
+    <h2>divu</h2>
+    <p><b>Divide Unsigned</b></p>
+    <table border="1" cellspacing="0" cellpadding="5">
+        <tr>
+            <th>31-27</th><th>26-25</th><th>24-20</th><th>19-15</th><th>14-12</th><th>11-7</th><th>6-2</th><th>1-0</th>
+        </tr>
+        <tr>
+            <td>00000</td><td>01</td><td>rs2</td><td>rs1</td><td>101</td><td>rd</td><td>01100</td><td>11</td>
+        </tr>
+    </table>
+    <p><b>形式:</b> divu rd, rs1, rs2</p>
+    <p><b>説明:</b> rs1をrs2で符号なし除算し、商をrdに格納します。ゼロ除算の場合、結果は未定義です。</p>
+    <p><b>実装:</b> x[rd] = unsigned(x[rs1]) / unsigned(x[rs2])</p>
+    <hr>
+
+    <h2>rem</h2>
+    <p><b>Remainder</b></p>
+    <table border="1" cellspacing="0" cellpadding="5">
+        <tr>
+            <th>31-27</th><th>26-25</th><th>24-20</th><th>19-15</th><th>14-12</th><th>11-7</th><th>6-2</th><th>1-0</th>
+        </tr>
+        <tr>
+            <td>00000</td><td>01</td><td>rs2</td><td>rs1</td><td>110</td><td>rd</td><td>01100</td><td>11</td>
+        </tr>
+    </table>
+    <p><b>形式:</b> rem rd, rs1, rs2</p>
+    <p><b>説明:</b> rs1をrs2で符号付き除算した余りをrdに格納します。</p>
+    <p><b>実装:</b> x[rd] = x[rs1] % x[rs2]</p>
+    <hr>
+
+    <h2>remu</h2>
+    <p><b>Remainder Unsigned</b></p>
+    <table border="1" cellspacing="0" cellpadding="5">
+        <tr>
+            <th>31-27</th><th>26-25</th><th>24-20</th><th>19-15</th><th>14-12</th><th>11-7</th><th>6-2</th><th>1-0</th>
+        </tr>
+        <tr>
+            <td>00000</td><td>01</td><td>rs2</td><td>rs1</td><td>111</td><td>rd</td><td>01100</td><td>11</td>
+        </tr>
+    </table>
+    <p><b>形式:</b> remu rd, rs1, rs2</p>
+    <p><b>説明:</b> rs1をrs2で符号なし除算した余りをrdに格納します。</p>
+    <p><b>実装:</b> x[rd] = unsigned(x[rs1]) % unsigned(x[rs2])</p>
+    <hr>
+</html>

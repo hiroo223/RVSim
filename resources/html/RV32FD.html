@@ -1,0 +1,678 @@
+<html>
+    <h1>RV32F/F拡張およびRV32D/D拡張命令セット</h1>
+
+    <h2>fadd.d</h2>
+    <p><b>Floating-Point Add (Double)</b></p>
+    <table border="1" cellspacing="0" cellpadding="5">
+        <tr>
+            <th>31-27</th><th>26-25</th><th>24-20</th><th>19-15</th><th>14-12</th><th>11-7</th><th>6-2</th><th>1-0</th>
+        </tr>
+        <tr>
+            <td>00001</td><td>00</td><td>rs2</td><td>rs1</td><td>000</td><td>rd</td><td>10100</td><td>11</td>
+        </tr>
+    </table>
+    <p><b>形式:</b> fadd.d rd, rs1, rs2</p>
+    <p><b>説明:</b> rs1とrs2の倍精度浮動小数点値を加算し、結果をrdに格納します。</p>
+    <p><b>実装:</b> f[rd] = f[rs1] + f[rs2]</p>
+    <hr>
+
+    <h2>fadd.s</h2>
+    <p><b>Floating-Point Add (Single)</b></p>
+    <table border="1" cellspacing="0" cellpadding="5">
+        <tr>
+            <th>31-27</th><th>26-25</th><th>24-20</th><th>19-15</th><th>14-12</th><th>11-7</th><th>6-2</th><th>1-0</th>
+        </tr>
+        <tr>
+            <td>00000</td><td>00</td><td>rs2</td><td>rs1</td><td>000</td><td>rd</td><td>10100</td><td>11</td>
+        </tr>
+    </table>
+    <p><b>形式:</b> fadd.s rd, rs1, rs2</p>
+    <p><b>説明:</b> rs1とrs2の単精度浮動小数点値を加算し、結果をrdに格納します。</p>
+    <p><b>実装:</b> f[rd] = f[rs1] + f[rs2]</p>
+    <hr>
+
+    <h2>fclass.d</h2>
+    <p><b>Floating-Point Classify (Double)</b></p>
+    <table border="1" cellspacing="0" cellpadding="5">
+        <tr>
+            <th>31-27</th><th>26-25</th><th>24-20</th><th>19-15</th><th>14-12</th><th>11-7</th><th>6-2</th><th>1-0</th>
+        </tr>
+        <tr>
+            <td>00001</td><td>00</td><td>00000</td><td>rs1</td><td>001</td><td>rd</td><td>10100</td><td>11</td>
+        </tr>
+    </table>
+    <p><b>形式:</b> fclass.d rd, rs1</p>
+    <p><b>説明:</b> rs1の倍精度浮動小数点値を分類し、その結果をrdに格納します。</p>
+    <hr>
+
+    <h2>fclass.s</h2>
+    <p><b>Floating-Point Classify (Single)</b></p>
+    <table border="1" cellspacing="0" cellpadding="5">
+        <tr>
+            <th>31-27</th><th>26-25</th><th>24-20</th><th>19-15</th><th>14-12</th><th>11-7</th><th>6-2</th><th>1-0</th>
+        </tr>
+        <tr>
+            <td>00000</td><td>00</td><td>00000</td><td>rs1</td><td>001</td><td>rd</td><td>10100</td><td>11</td>
+        </tr>
+    </table>
+    <p><b>形式:</b> fclass.s rd, rs1</p>
+    <p><b>説明:</b> rs1の単精度浮動小数点値を分類し、その結果をrdに格納します。</p>
+    <hr>
+
+    <h2>fcvt.d.w</h2>
+    <p><b>Convert Integer to Double</b></p>
+    <table border="1" cellspacing="0" cellpadding="5">
+        <tr>
+            <th>31-27</th><th>26-25</th><th>24-20</th><th>19-15</th><th>14-12</th><th>11-7</th><th>6-2</th><th>1-0</th>
+        </tr>
+        <tr>
+            <td>11000</td><td>00</td><td>00000</td><td>rs1</td><td>010</td><td>rd</td><td>10100</td><td>11</td>
+        </tr>
+    </table>
+    <p><b>形式:</b> fcvt.d.w rd, rs1</p>
+    <p><b>説明:</b> rs1の符号付き整数を倍精度浮動小数点値に変換し、rdに格納します。</p>
+    <hr>
+
+	<h2>fcvt.d.wu</h2>
+    <p><b>Convert Unsigned Integer to Double</b></p>
+    <table border="1" cellspacing="0" cellpadding="5">
+        <tr>
+            <th>31-27</th><th>26-25</th><th>24-20</th><th>19-15</th><th>14-12</th><th>11-7</th><th>6-2</th><th>1-0</th>
+        </tr>
+        <tr>
+            <td>11000</td><td>00</td><td>00000</td><td>rs1</td><td>011</td><td>rd</td><td>10100</td><td>11</td>
+        </tr>
+    </table>
+    <p><b>形式:</b> fcvt.d.wu rd, rs1</p>
+    <p><b>説明:</b> rs1の符号なし整数を倍精度浮動小数点値に変換し、rdに格納します。</p>
+    <hr>
+
+    <h2>fcvt.s.w</h2>
+    <p><b>Convert Integer to Single</b></p>
+    <table border="1" cellspacing="0" cellpadding="5">
+        <tr>
+            <th>31-27</th><th>26-25</th><th>24-20</th><th>19-15</th><th>14-12</th><th>11-7</th><th>6-2</th><th>1-0</th>
+        </tr>
+        <tr>
+            <td>11000</td><td>00</td><td>00000</td><td>rs1</td><td>010</td><td>rd</td><td>10100</td><td>11</td>
+        </tr>
+    </table>
+    <p><b>形式:</b> fcvt.s.w rd, rs1</p>
+    <p><b>説明:</b> rs1の符号付き整数を単精度浮動小数点値に変換し、rdに格納します。</p>
+    <hr>
+
+    <h2>fcvt.s.wu</h2>
+    <p><b>Convert Unsigned Integer to Single</b></p>
+    <table border="1" cellspacing="0" cellpadding="5">
+        <tr>
+            <th>31-27</th><th>26-25</th><th>24-20</th><th>19-15</th><th>14-12</th><th>11-7</th><th>6-2</th><th>1-0</th>
+        </tr>
+        <tr>
+            <td>11000</td><td>00</td><td>00000</td><td>rs1</td><td>011</td><td>rd</td><td>10100</td><td>11</td>
+        </tr>
+    </table>
+    <p><b>形式:</b> fcvt.s.wu rd, rs1</p>
+    <p><b>説明:</b> rs1の符号なし整数を単精度浮動小数点値に変換し、rdに格納します。</p>
+    <hr>
+
+    <h2>fcvt.w.d</h2>
+    <p><b>Convert Double to Integer</b></p>
+    <table border="1" cellspacing="0" cellpadding="5">
+        <tr>
+            <th>31-27</th><th>26-25</th><th>24-20</th><th>19-15</th><th>14-12</th><th>11-7</th><th>6-2</th><th>1-0</th>
+        </tr>
+        <tr>
+            <td>11000</td><td>00</td><td>00000</td><td>rs1</td><td>000</td><td>rd</td><td>10100</td><td>11</td>
+        </tr>
+    </table>
+    <p><b>形式:</b> fcvt.w.d rd, rs1</p>
+    <p><b>説明:</b> rs1の倍精度浮動小数点値を符号付き整数に変換し、rdに格納します。</p>
+    <hr>
+
+    <h2>fcvt.w.s</h2>
+    <p><b>Convert Single to Integer</b></p>
+    <table border="1" cellspacing="0" cellpadding="5">
+        <tr>
+            <th>31-27</th><th>26-25</th><th>24-20</th><th>19-15</th><th>14-12</th><th>11-7</th><th>6-2</th><th>1-0</th>
+        </tr>
+        <tr>
+            <td>11000</td><td>00</td><td>00000</td><td>rs1</td><td>000</td><td>rd</td><td>10100</td><td>11</td>
+        </tr>
+    </table>
+    <p><b>形式:</b> fcvt.w.s rd, rs1</p>
+    <p><b>説明:</b> rs1の単精度浮動小数点値を符号付き整数に変換し、rdに格納します。</p>
+    <hr>
+	
+	<h2>fcvt.wu.d</h2>
+    <p><b>Convert Unsigned Integer to Double</b></p>
+    <table border="1" cellspacing="0" cellpadding="5">
+        <tr>
+            <th>31-27</th><th>26-25</th><th>24-20</th><th>19-15</th><th>14-12</th><th>11-7</th><th>6-2</th><th>1-0</th>
+        </tr>
+        <tr>
+            <td>11000</td><td>00</td><td>00000</td><td>rs1</td><td>011</td><td>rd</td><td>10100</td><td>11</td>
+        </tr>
+    </table>
+    <p><b>形式:</b> fcvt.wu.d rd, rs1</p>
+    <p><b>説明:</b> rs1の符号なし整数を倍精度浮動小数点値に変換し、rdに格納します。</p>
+    <hr>
+
+    <h2>fcvt.wu.s</h2>
+    <p><b>Convert Unsigned Integer to Single</b></p>
+    <table border="1" cellspacing="0" cellpadding="5">
+        <tr>
+            <th>31-27</th><th>26-25</th><th>24-20</th><th>19-15</th><th>14-12</th><th>11-7</th><th>6-2</th><th>1-0</th>
+        </tr>
+        <tr>
+            <td>11000</td><td>00</td><td>00000</td><td>rs1</td><td>011</td><td>rd</td><td>10100</td><td>11</td>
+        </tr>
+    </table>
+    <p><b>形式:</b> fcvt.wu.s rd, rs1</p>
+    <p><b>説明:</b> rs1の符号なし整数を単精度浮動小数点値に変換し、rdに格納します。</p>
+    <hr>
+
+    <h2>fdiv.d</h2>
+    <p><b>Floating-Point Divide (Double)</b></p>
+    <table border="1" cellspacing="0" cellpadding="5">
+        <tr>
+            <th>31-27</th><th>26-25</th><th>24-20</th><th>19-15</th><th>14-12</th><th>11-7</th><th>6-2</th><th>1-0</th>
+        </tr>
+        <tr>
+            <td>10000</td><td>00</td><td>rs2</td><td>rs1</td><td>000</td><td>rd</td><td>10100</td><td>11</td>
+        </tr>
+    </table>
+    <p><b>形式:</b> fdiv.d rd, rs1, rs2</p>
+    <p><b>説明:</b> rs1をrs2で倍精度浮動小数点除算し、結果をrdに格納します。</p>
+    <hr>
+
+    <h2>fdiv.s</h2>
+    <p><b>Floating-Point Divide (Single)</b></p>
+    <table border="1" cellspacing="0" cellpadding="5">
+        <tr>
+            <th>31-27</th><th>26-25</th><th>24-20</th><th>19-15</th><th>14-12</th><th>11-7</th><th>6-2</th><th>1-0</th>
+        </tr>
+        <tr>
+            <td>10000</td><td>00</td><td>rs2</td><td>rs1</td><td>000</td><td>rd</td><td>10100</td><td>11</td>
+        </tr>
+    </table>
+    <p><b>形式:</b> fdiv.s rd, rs1, rs2</p>
+    <p><b>説明:</b> rs1をrs2で単精度浮動小数点除算し、結果をrdに格納します。</p>
+    <hr>
+
+    <h2>feq.d</h2>
+    <p><b>Floating-Point Compare Equal (Double)</b></p>
+    <table border="1" cellspacing="0" cellpadding="5">
+        <tr>
+            <th>31-27</th><th>26-25</th><th>24-20</th><th>19-15</th><th>14-12</th><th>11-7</th><th>6-2</th><th>1-0</th>
+        </tr>
+        <tr>
+            <td>10100</td><td>00</td><td>rs2</td><td>rs1</td><td>010</td><td>rd</td><td>10100</td><td>11</td>
+        </tr>
+    </table>
+    <p><b>形式:</b> feq.d rd, rs1, rs2</p>
+    <p><b>説明:</b> rs1とrs2の倍精度浮動小数点値が等しい場合、rdに1を格納します。それ以外は0を格納します。</p>
+    <hr>
+
+    <h2>feq.s</h2>
+    <p><b>Floating-Point Compare Equal (Single)</b></p>
+    <table border="1" cellspacing="0" cellpadding="5">
+        <tr>
+            <th>31-27</th><th>26-25</th><th>24-20</th><th>19-15</th><th>14-12</th><th>11-7</th><th>6-2</th><th>1-0</th>
+        </tr>
+        <tr>
+            <td>10100</td><td>00</td><td>rs2</td><td>rs1</td><td>010</td><td>rd</td><td>10100</td><td>11</td>
+        </tr>
+    </table>
+    <p><b>形式:</b> feq.s rd, rs1, rs2</p>
+    <p><b>説明:</b> rs1とrs2の単精度浮動小数点値が等しい場合、rdに1を格納します。それ以外は0を格納します。</p>
+    <hr>
+	
+	<h2>fld</h2>
+    <p><b>Floating-Point Load (Double)</b></p>
+    <table border="1" cellspacing="0" cellpadding="5">
+        <tr>
+            <th>31-27</th><th>26-25</th><th>24-20</th><th>19-15</th><th>14-12</th><th>11-7</th><th>6-2</th><th>1-0</th>
+        </tr>
+        <tr>
+            <td>00001</td><td>00</td><td>imm[11:0]</td><td>rs1</td><td>011</td><td>rd</td><td>00000</td><td>11</td>
+        </tr>
+    </table>
+    <p><b>形式:</b> fld rd, offset(rs1)</p>
+    <p><b>説明:</b> メモリから倍精度浮動小数点値をロードして、rdに格納します。</p>
+    <hr>
+
+    <h2>fle.d</h2>
+    <p><b>Floating-Point Compare Less or Equal (Double)</b></p>
+    <table border="1" cellspacing="0" cellpadding="5">
+        <tr>
+            <th>31-27</th><th>26-25</th><th>24-20</th><th>19-15</th><th>14-12</th><th>11-7</th><th>6-2</th><th>1-0</th>
+        </tr>
+        <tr>
+            <td>10100</td><td>00</td><td>rs2</td><td>rs1</td><td>000</td><td>rd</td><td>10100</td><td>11</td>
+        </tr>
+    </table>
+    <p><b>形式:</b> fle.d rd, rs1, rs2</p>
+    <p><b>説明:</b> rs1がrs2以下の場合、rdに1を格納します。それ以外は0を格納します。</p>
+    <hr>
+
+    <h2>fle.s</h2>
+    <p><b>Floating-Point Compare Less or Equal (Single)</b></p>
+    <table border="1" cellspacing="0" cellpadding="5">
+        <tr>
+            <th>31-27</th><th>26-25</th><th>24-20</th><th>19-15</th><th>14-12</th><th>11-7</th><th>6-2</th><th>1-0</th>
+        </tr>
+        <tr>
+            <td>10100</td><td>00</td><td>rs2</td><td>rs1</td><td>000</td><td>rd</td><td>10100</td><td>11</td>
+        </tr>
+    </table>
+    <p><b>形式:</b> fle.s rd, rs1, rs2</p>
+    <p><b>説明:</b> rs1がrs2以下の場合、rdに1を格納します。それ以外は0を格納します。</p>
+    <hr>
+
+    <h2>flw</h2>
+    <p><b>Floating-Point Load (Single)</b></p>
+    <table border="1" cellspacing="0" cellpadding="5">
+        <tr>
+            <th>31-27</th><th>26-25</th><th>24-20</th><th>19-15</th><th>14-12</th><th>11-7</th><th>6-2</th><th>1-0</th>
+        </tr>
+        <tr>
+            <td>00000</td><td>00</td><td>imm[11:0]</td><td>rs1</td><td>010</td><td>rd</td><td>00000</td><td>11</td>
+        </tr>
+    </table>
+    <p><b>形式:</b> flw rd, offset(rs1)</p>
+    <p><b>説明:</b> メモリから単精度浮動小数点値をロードして、rdに格納します。</p>
+    <hr>
+
+    <h2>flt.d</h2>
+    <p><b>Floating-Point Compare Less Than (Double)</b></p>
+    <table border="1" cellspacing="0" cellpadding="5">
+        <tr>
+            <th>31-27</th><th>26-25</th><th>24-20</th><th>19-15</th><th>14-12</th><th>11-7</th><th>6-2</th><th>1-0</th>
+        </tr>
+        <tr>
+            <td>10100</td><td>00</td><td>rs2</td><td>rs1</td><td>001</td><td>rd</td><td>10100</td><td>11</td>
+        </tr>
+    </table>
+    <p><b>形式:</b> flt.d rd, rs1, rs2</p>
+    <p><b>説明:</b> rs1がrs2より小さい場合、rdに1を格納します。それ以外は0を格納します。</p>
+    <hr>
+
+    <h2>flt.s</h2>
+    <p><b>Floating-Point Compare Less Than (Single)</b></p>
+    <table border="1" cellspacing="0" cellpadding="5">
+        <tr>
+            <th>31-27</th><th>26-25</th><th>24-20</th><th>19-15</th><th>14-12</th><th>11-7</th><th>6-2</th><th>1-0</th>
+        </tr>
+        <tr>
+            <td>10100</td><td>00</td><td>rs2</td><td>rs1</td><td>001</td><td>rd</td><td>10100</td><td>11</td>
+        </tr>
+    </table>
+    <p><b>形式:</b> flt.s rd, rs1, rs2</p>
+    <p><b>説明:</b> rs1がrs2より小さい場合、rdに1を格納します。それ以外は0を格納します。</p>
+    <hr>
+	
+	<h2>fmax.d</h2>
+    <p><b>Floating-Point Maximum (Double)</b></p>
+    <table border="1" cellspacing="0" cellpadding="5">
+        <tr>
+            <th>31-27</th><th>26-25</th><th>24-20</th><th>19-15</th><th>14-12</th><th>11-7</th><th>6-2</th><th>1-0</th>
+        </tr>
+        <tr>
+            <td>10100</td><td>00</td><td>rs2</td><td>rs1</td><td>101</td><td>rd</td><td>10100</td><td>11</td>
+        </tr>
+    </table>
+    <p><b>形式:</b> fmax.d rd, rs1, rs2</p>
+    <p><b>説明:</b> rs1とrs2のうち最大の倍精度浮動小数点値をrdに格納します。</p>
+    <hr>
+
+    <h2>fmax.s</h2>
+    <p><b>Floating-Point Maximum (Single)</b></p>
+    <table border="1" cellspacing="0" cellpadding="5">
+        <tr>
+            <th>31-27</th><th>26-25</th><th>24-20</th><th>19-15</th><th>14-12</th><th>11-7</th><th>6-2</th><th>1-0</th>
+        </tr>
+        <tr>
+            <td>10100</td><td>00</td><td>rs2</td><td>rs1</td><td>101</td><td>rd</td><td>10100</td><td>11</td>
+        </tr>
+    </table>
+    <p><b>形式:</b> fmax.s rd, rs1, rs2</p>
+    <p><b>説明:</b> rs1とrs2のうち最大の単精度浮動小数点値をrdに格納します。</p>
+    <hr>
+
+    <h2>fmin.d</h2>
+    <p><b>Floating-Point Minimum (Double)</b></p>
+    <table border="1" cellspacing="0" cellpadding="5">
+        <tr>
+            <th>31-27</th><th>26-25</th><th>24-20</th><th>19-15</th><th>14-12</th><th>11-7</th><th>6-2</th><th>1-0</th>
+        </tr>
+        <tr>
+            <td>10100</td><td>00</td><td>rs2</td><td>rs1</td><td>100</td><td>rd</td><td>10100</td><td>11</td>
+        </tr>
+    </table>
+    <p><b>形式:</b> fmin.d rd, rs1, rs2</p>
+    <p><b>説明:</b> rs1とrs2のうち最小の倍精度浮動小数点値をrdに格納します。</p>
+    <hr>
+
+    <h2>fmin.s</h2>
+    <p><b>Floating-Point Minimum (Single)</b></p>
+    <table border="1" cellspacing="0" cellpadding="5">
+        <tr>
+            <th>31-27</th><th>26-25</th><th>24-20</th><th>19-15</th><th>14-12</th><th>11-7</th><th>6-2</th><th>1-0</th>
+        </tr>
+        <tr>
+            <td>10100</td><td>00</td><td>rs2</td><td>rs1</td><td>100</td><td>rd</td><td>10100</td><td>11</td>
+        </tr>
+    </table>
+    <p><b>形式:</b> fmin.s rd, rs1, rs2</p>
+    <p><b>説明:</b> rs1とrs2のうち最小の単精度浮動小数点値をrdに格納します。</p>
+    <hr>
+
+    <h2>fmadd.d</h2>
+    <p><b>Floating-Point Multiply-Add (Double)</b></p>
+    <table border="1" cellspacing="0" cellpadding="5">
+        <tr>
+            <th>31-27</th><th>26-25</th><th>24-20</th><th>19-15</th><th>14-12</th><th>11-7</th><th>6-2</th><th>1-0</th>
+        </tr>
+        <tr>
+            <td>10000</td><td>00</td><td>rs3</td><td>rs2</td><td>000</td><td>rd</td><td>10100</td><td>11</td>
+        </tr>
+    </table>
+    <p><b>形式:</b> fmadd.d rd, rs1, rs2, rs3</p>
+    <p><b>説明:</b> (rs1 × rs2) + rs3 を倍精度浮動小数点演算で計算し、結果をrdに格納します。</p>
+    <hr>
+
+    <h2>fmadd.s</h2>
+    <p><b>Floating-Point Multiply-Add (Single)</b></p>
+    <table border="1" cellspacing="0" cellpadding="5">
+        <tr>
+            <th>31-27</th><th>26-25</th><th>24-20</th><th>19-15</th><th>14-12</th><th>11-7</th><th>6-2</th><th>1-0</th>
+        </tr>
+        <tr>
+            <td>10000</td><td>00</td><td>rs3</td><td>rs2</td><td>000</td><td>rd</td><td>10100</td><td>11</td>
+        </tr>
+    </table>
+    <p><b>形式:</b> fmadd.s rd, rs1, rs2, rs3</p>
+    <p><b>説明:</b> (rs1 × rs2) + rs3 を単精度浮動小数点演算で計算し、結果をrdに格納します。</p>
+    <hr>
+
+    <h2>fsw</h2>
+    <p><b>Floating-Point Store (Single)</b></p>
+    <table border="1" cellspacing="0" cellpadding="5">
+        <tr>
+            <th>31-27</th><th>26-25</th><th>24-20</th><th>19-15</th><th>14-12</th><th>11-7</th><th>6-2</th><th>1-0</th>
+        </tr>
+        <tr>
+            <td>01000</td><td>00</td><td>imm[11:5]</td><td>rs1</td><td>010</td><td>imm[4:0]</td><td>00000</td><td>11</td>
+        </tr>
+    </table>
+    <p><b>形式:</b> fsw rs2, offset(rs1)</p>
+    <p><b>説明:</b> rs2の単精度浮動小数点値をメモリに保存します。</p>
+    <hr>
+	
+	<h2>fmmadd.d</h2>
+    <p><b>Floating-Point Multiply-Multiply-Add (Double)</b></p>
+    <table border="1" cellspacing="0" cellpadding="5">
+        <tr>
+            <th>31-27</th><th>26-25</th><th>24-20</th><th>19-15</th><th>14-12</th><th>11-7</th><th>6-2</th><th>1-0</th>
+        </tr>
+        <tr>
+            <td>10100</td><td>00</td><td>rs3</td><td>rs2</td><td>000</td><td>rd</td><td>10100</td><td>11</td>
+        </tr>
+    </table>
+    <p><b>形式:</b> fmmadd.d rd, rs1, rs2, rs3</p>
+    <p><b>説明:</b> (rs1 × rs2 × rs3) を倍精度浮動小数点演算で計算し、結果をrdに格納します。</p>
+    <hr>
+
+    <h2>fmmadd.s</h2>
+    <p><b>Floating-Point Multiply-Multiply-Add (Single)</b></p>
+    <table border="1" cellspacing="0" cellpadding="5">
+        <tr>
+            <th>31-27</th><th>26-25</th><th>24-20</th><th>19-15</th><th>14-12</th><th>11-7</th><th>6-2</th><th>1-0</th>
+        </tr>
+        <tr>
+            <td>10100</td><td>00</td><td>rs3</td><td>rs2</td><td>000</td><td>rd</td><td>10100</td><td>11</td>
+        </tr>
+    </table>
+    <p><b>形式:</b> fmmadd.s rd, rs1, rs2, rs3</p>
+    <p><b>説明:</b> (rs1 × rs2 × rs3) を単精度浮動小数点演算で計算し、結果をrdに格納します。</p>
+    <hr>
+
+    <h2>fmmsub.d</h2>
+    <p><b>Floating-Point Multiply-Multiply-Subtract (Double)</b></p>
+    <table border="1" cellspacing="0" cellpadding="5">
+        <tr>
+            <th>31-27</th><th>26-25</th><th>24-20</th><th>19-15</th><th>14-12</th><th>11-7</th><th>6-2</th><th>1-0</th>
+        </tr>
+        <tr>
+            <td>10100</td><td>00</td><td>rs3</td><td>rs2</td><td>000</td><td>rd</td><td>10101</td><td>11</td>
+        </tr>
+    </table>
+    <p><b>形式:</b> fmmsub.d rd, rs1, rs2, rs3</p>
+    <p><b>説明:</b> (rs1 × rs2) - rs3 を倍精度浮動小数点演算で計算し、結果をrdに格納します。</p>
+    <hr>
+
+    <h2>fmmsub.s</h2>
+    <p><b>Floating-Point Multiply-Multiply-Subtract (Single)</b></p>
+    <table border="1" cellspacing="0" cellpadding="5">
+        <tr>
+            <th>31-27</th><th>26-25</th><th>24-20</th><th>19-15</th><th>14-12</th><th>11-7</th><th>6-2</th><th>1-0</th>
+        </tr>
+        <tr>
+            <td>10100</td><td>00</td><td>rs3</td><td>rs2</td><td>000</td><td>rd</td><td>10101</td><td>11</td>
+        </tr>
+    </table>
+    <p><b>形式:</b> fmmsub.s rd, rs1, rs2, rs3</p>
+    <p><b>説明:</b> (rs1 × rs2) - rs3 を単精度浮動小数点演算で計算し、結果をrdに格納します。</p>
+    <hr>
+	
+	<h2>fmul.d</h2>
+    <p><b>Floating-Point Multiply (Double)</b></p>
+    <table border="1" cellspacing="0" cellpadding="5">
+        <tr>
+            <th>31-27</th><th>26-25</th><th>24-20</th><th>19-15</th><th>14-12</th><th>11-7</th><th>6-2</th><th>1-0</th>
+        </tr>
+        <tr>
+            <td>10000</td><td>00</td><td>rs2</td><td>rs1</td><td>010</td><td>rd</td><td>10100</td><td>11</td>
+        </tr>
+    </table>
+    <p><b>形式:</b> fmul.d rd, rs1, rs2</p>
+    <p><b>説明:</b> rs1とrs2の倍精度浮動小数点値を乗算し、結果をrdに格納します。</p>
+    <hr>
+
+    <h2>fmul.s</h2>
+    <p><b>Floating-Point Multiply (Single)</b></p>
+    <table border="1" cellspacing="0" cellpadding="5">
+        <tr>
+            <th>31-27</th><th>26-25</th><th>24-20</th><th>19-15</th><th>14-12</th><th>11-7</th><th>6-2</th><th>1-0</th>
+        </tr>
+        <tr>
+            <td>10000</td><td>00</td><td>rs2</td><td>rs1</td><td>010</td><td>rd</td><td>10100</td><td>11</td>
+        </tr>
+    </table>
+    <p><b>形式:</b> fmul.s rd, rs1, rs2</p>
+    <p><b>説明:</b> rs1とrs2の単精度浮動小数点値を乗算し、結果をrdに格納します。</p>
+    <hr>
+
+    <h2>fmv.d.x</h2>
+    <p><b>Move Integer to Double</b></p>
+    <table border="1" cellspacing="0" cellpadding="5">
+        <tr>
+            <th>31-27</th><th>26-25</th><th>24-20</th><th>19-15</th><th>14-12</th><th>11-7</th><th>6-2</th><th>1-0</th>
+        </tr>
+        <tr>
+            <td>11100</td><td>00</td><td>00000</td><td>rs1</td><td>000</td><td>rd</td><td>10100</td><td>11</td>
+        </tr>
+    </table>
+    <p><b>形式:</b> fmv.d.x rd, rs1</p>
+    <p><b>説明:</b> rs1の整数値を倍精度浮動小数点レジスタに移動します。</p>
+    <hr>
+
+    <h2>fmv.w.d</h2>
+    <p><b>Move Double to Single</b></p>
+    <table border="1" cellspacing="0" cellpadding="5">
+        <tr>
+            <th>31-27</th><th>26-25</th><th>24-20</th><th>19-15</th><th>14-12</th><th>11-7</th><th>6-2</th><th>1-0</th>
+        </tr>
+        <tr>
+            <td>11100</td><td>00</td><td>00000</td><td>rs1</td><td>000</td><td>rd</td><td>10100</td><td>11</td>
+        </tr>
+    </table>
+    <p><b>形式:</b> fmv.w.d rd, rs1</p>
+    <p><b>説明:</b> rs1の倍精度浮動小数点値を単精度浮動小数点レジスタに移動します。</p>
+    <hr>
+
+    <h2>fsgnj.d</h2>
+    <p><b>Floating-Point Sign Inject (Double)</b></p>
+    <table border="1" cellspacing="0" cellpadding="5">
+        <tr>
+            <th>31-27</th><th>26-25</th><th>24-20</th><th>19-15</th><th>14-12</th><th>11-7</th><th>6-2</th><th>1-0</th>
+        </tr>
+        <tr>
+            <td>10000</td><td>00</td><td>rs2</td><td>rs1</td><td>000</td><td>rd</td><td>10100</td><td>11</td>
+        </tr>
+    </table>
+    <p><b>形式:</b> fsgnj.d rd, rs1, rs2</p>
+    <p><b>説明:</b> rs1の倍精度浮動小数点値にrs2の符号を注入し、結果をrdに格納します。</p>
+    <hr>
+
+    <h2>fsgnj.s</h2>
+    <p><b>Floating-Point Sign Inject (Single)</b></p>
+    <table border="1" cellspacing="0" cellpadding="5">
+        <tr>
+            <th>31-27</th><th>26-25</th><th>24-20</th><th>19-15</th><th>14-12</th><th>11-7</th><th>6-2</th><th>1-0</th>
+        </tr>
+        <tr>
+            <td>10000</td><td>00</td><td>rs2</td><td>rs1</td><td>000</td><td>rd</td><td>10100</td><td>11</td>
+        </tr>
+    </table>
+    <p><b>形式:</b> fsgnj.s rd, rs1, rs2</p>
+    <p><b>説明:</b> rs1の単精度浮動小数点値にrs2の符号を注入し、結果をrdに格納します。</p>
+    <hr>
+
+    <h2>fsd</h2>
+    <p><b>Floating-Point Store (Double)</b></p>
+    <table border="1" cellspacing="0" cellpadding="5">
+        <tr>
+            <th>31-27</th><th>26-25</th><th>24-20</th><th>19-15</th><th>14-12</th><th>11-7</th><th>6-2</th><th>1-0</th>
+        </tr>
+        <tr>
+            <td>01000</td><td>00</td><td>imm[11:5]</td><td>rs1</td><td>011</td><td>imm[4:0]</td><td>00000</td><td>11</td>
+        </tr>
+    </table>
+    <p><b>形式:</b> fsd rs2, offset(rs1)</p>
+    <p><b>説明:</b> rs2の倍精度浮動小数点値をメモリに保存します。</p>
+    <hr>
+
+	<h2>fsgnjx.d</h2>
+    <p><b>Floating-Point Sign Inject XOR (Double)</b></p>
+    <table border="1" cellspacing="0" cellpadding="5">
+        <tr>
+            <th>31-27</th><th>26-25</th><th>24-20</th><th>19-15</th><th>14-12</th><th>11-7</th><th>6-2</th><th>1-0</th>
+        </tr>
+        <tr>
+            <td>10000</td><td>00</td><td>rs2</td><td>rs1</td><td>010</td><td>rd</td><td>10100</td><td>11</td>
+        </tr>
+    </table>
+    <p><b>形式:</b> fsgnjx.d rd, rs1, rs2</p>
+    <p><b>説明:</b> rs1の倍精度浮動小数点値にrs2の符号ビットをXORした結果を注入し、結果をrdに格納します。</p>
+    <hr>
+
+    <h2>fsgnjx.s</h2>
+    <p><b>Floating-Point Sign Inject XOR (Single)</b></p>
+    <table border="1" cellspacing="0" cellpadding="5">
+        <tr>
+            <th>31-27</th><th>26-25</th><th>24-20</th><th>19-15</th><th>14-12</th><th>11-7</th><th>6-2</th><th>1-0</th>
+        </tr>
+        <tr>
+            <td>10000</td><td>00</td><td>rs2</td><td>rs1</td><td>010</td><td>rd</td><td>10100</td><td>11</td>
+        </tr>
+    </table>
+    <p><b>形式:</b> fsgnjx.s rd, rs1, rs2</p>
+    <p><b>説明:</b> rs1の単精度浮動小数点値にrs2の符号ビットをXORした結果を注入し、結果をrdに格納します。</p>
+    <hr>
+
+    <h2>fsgnjn.d</h2>
+    <p><b>Floating-Point Sign Inject Negate (Double)</b></p>
+    <table border="1" cellspacing="0" cellpadding="5">
+        <tr>
+            <th>31-27</th><th>26-25</th><th>24-20</th><th>19-15</th><th>14-12</th><th>11-7</th><th>6-2</th><th>1-0</th>
+        </tr>
+        <tr>
+            <td>10000</td><td>00</td><td>rs2</td><td>rs1</td><td>001</td><td>rd</td><td>10100</td><td>11</td>
+        </tr>
+    </table>
+    <p><b>形式:</b> fsgnjn.d rd, rs1, rs2</p>
+    <p><b>説明:</b> rs1の倍精度浮動小数点値にrs2の符号ビットを反転させた結果を注入し、結果をrdに格納します。</p>
+    <hr>
+
+    <h2>fsgnjn.s</h2>
+    <p><b>Floating-Point Sign Inject Negate (Single)</b></p>
+    <table border="1" cellspacing="0" cellpadding="5">
+        <tr>
+            <th>31-27</th><th>26-25</th><th>24-20</th><th>19-15</th><th>14-12</th><th>11-7</th><th>6-2</th><th>1-0</th>
+        </tr>
+        <tr>
+            <td>10000</td><td>00</td><td>rs2</td><td>rs1</td><td>001</td><td>rd</td><td>10100</td><td>11</td>
+        </tr>
+    </table>
+    <p><b>形式:</b> fsgnjn.s rd, rs1, rs2</p>
+    <p><b>説明:</b> rs1の単精度浮動小数点値にrs2の符号ビットを反転させた結果を注入し、結果をrdに格納します。</p>
+    <hr>
+	
+    <h2>fsqrt.d</h2>
+    <p><b>Floating-Point Square Root (Double)</b></p>
+    <table border="1" cellspacing="0" cellpadding="5">
+        <tr>
+            <th>31-27</th><th>26-25</th><th>24-20</th><th>19-15</th><th>14-12</th><th>11-7</th><th>6-2</th><th>1-0</th>
+        </tr>
+        <tr>
+            <td>10101</td><td>00</td><td>00000</td><td>rs1</td><td>100</td><td>rd</td><td>10110</td><td>11</td>
+        </tr>
+    </table>
+    <p><b>形式:</b> fsqrt.d rd, rs1</p>
+    <p><b>説明:</b> rs1の倍精度浮動小数点値の平方根を計算し、結果をrdに格納します。</p>
+    <hr>
+
+    <h2>fsqrt.s</h2>
+    <p><b>Floating-Point Square Root (Single)</b></p>
+    <table border="1" cellspacing="0" cellpadding="5">
+        <tr>
+            <th>31-27</th><th>26-25</th><th>24-20</th><th>19-15</th><th>14-12</th><th>11-7</th><th>6-2</th><th>1-0</th>
+        </tr>
+        <tr>
+            <td>10101</td><td>00</td><td>00000</td><td>rs1</td><td>100</td><td>rd</td><td>10110</td><td>11</td>
+        </tr>
+    </table>
+    <p><b>形式:</b> fsqrt.s rd, rs1</p>
+    <p><b>説明:</b> rs1の単精度浮動小数点値の平方根を計算し、結果をrdに格納します。</p>
+    <hr>
+
+    <h2>fsub.d</h2>
+    <p><b>Floating-Point Subtract (Double)</b></p>
+    <table border="1" cellspacing="0" cellpadding="5">
+        <tr>
+            <th>31-27</th><th>26-25</th><th>24-20</th><th>19-15</th><th>14-12</th><th>11-7</th><th>6-2</th><th>1-0</th>
+        </tr>
+        <tr>
+            <td>10000</td><td>00</td><td>rs2</td><td>rs1</td><td>001</td><td>rd</td><td>10100</td><td>11</td>
+        </tr>
+    </table>
+    <p><b>形式:</b> fsub.d rd, rs1, rs2</p>
+    <p><b>説明:</b> rs1からrs2を引いた倍精度浮動小数点値を計算し、結果をrdに格納します。</p>
+    <hr>
+
+    <h2>fsub.s</h2>
+    <p><b>Floating-Point Subtract (Single)</b></p>
+    <table border="1" cellspacing="0" cellpadding="5">
+        <tr>
+            <th>31-27</th><th>26-25</th><th>24-20</th><th>19-15</th><th>14-12</th><th>11-7</th><th>6-2</th><th>1-0</th>
+        </tr>
+        <tr>
+            <td>10000</td><td>00</td><td>rs2</td><td>rs1</td><td>001</td><td>rd</td><td>10100</td><td>11</td>
+        </tr>
+    </table>
+    <p><b>形式:</b> fsub.s rd, rs1, rs2</p>
+    <p><b>説明:</b> rs1からrs2を引いた単精度浮動小数点値を計算し、結果をrdに格納します。</p>
+    <hr>
+
+</html>

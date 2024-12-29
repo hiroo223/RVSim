@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>システムコール命令一覧</title>
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            border: 1px solid #ccc;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f4f4f4;
+        }
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+    </style>
+</head>
+<body>
+    <h1>システムコール命令一覧</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>a0の値</th>
+                <th>機能</th>
+                <th>a1の値</th>
+                <th>出力例</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>1</td>
+                <td>整数を10進数で出力</td>
+                <td>出力する整数</td>
+                <td>a1 = 42 → 出力: <code>42</code></td>
+            </tr>
+            <tr>
+                <td>4</td>
+                <td>文字列を出力</td>
+                <td>文字列の先頭アドレス</td>
+                <td>a1 = "Hello" のアドレス → 出力: <code>Hello</code></td>
+            </tr>
+            <tr>
+                <td>10</td>
+                <td>プログラムの終了</td>
+                <td>なし</td>
+                <td>プログラム終了</td>
+            </tr>
+            <tr>
+                <td>11</td>
+                <td>1文字を出力</td>
+                <td>出力する文字 (ASCIIコード)</td>
+                <td>a1 = 'A' (ASCII: 65) → 出力: <code>A</code></td>
+            </tr>
+            <tr>
+                <td>17</td>
+                <td>プログラムの終了 (終了コード付き)</td>
+                <td>終了コード</td>
+                <td>a1 = 0 → 出力: プログラム終了 (終了コード: 0)</td>
+            </tr>
+            <tr>
+                <td>34</td>
+                <td>整数を16進数で出力</td>
+                <td>出力する整数</td>
+                <td>a1 = 255 → 出力: <code>0xFF</code></td>
+            </tr>
+        </tbody>
+    </table>
+</body>
+</html>

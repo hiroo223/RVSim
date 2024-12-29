@@ -1,0 +1,139 @@
+<html>
+<h1>RV32I 疑似命令セット</h1>
+<h2>bltz</h2>
+<p><b>Branch if Less Than Zero</b></p>
+<p><b>形式:</b> bltz rs, offset</p>
+<p><b>説明:</b> rsの内容がゼロ未満の場合、PCにoffsetを加算して分岐します。</p>
+<p><b>実装:</b> beq rs, x0, offset</p>
+<p><b>ベース命令:</b> beq</p>
+<hr>
+
+<h2>bnez</h2>
+<p><b>Branch if Not Equal Zero</b></p>
+<p><b>形式:</b> bnez rs, offset</p>
+<p><b>説明:</b> rsの内容がゼロでない場合、PCにoffsetを加算して分岐します。</p>
+<p><b>実装:</b> bne rs, x0, offset</p>
+<p><b>ベース命令:</b> bne</p>
+<hr>
+
+<h2>call</h2>
+<p><b>Function Call</b></p>
+<p><b>形式:</b> call imm</p>
+<p><b>説明:</b> 即値immをPCに設定し、戻りアドレスをx1に格納します。</p>
+<p><b>実装:</b> auipc x1, offset[31:12]; jalr x1, offset[11:0](x1)</p>
+<p><b>ベース命令:</b> auipc, jalr</p>
+<hr>
+
+<h2>fence</h2>
+<p><b>Memory Fence</b></p>
+<p><b>形式:</b> fence pred, succ</p>
+<p><b>説明:</b> メモリオペレーションの順序を制御します。</p>
+<p><b>実装:</b> fence pred, succ</p>
+<p><b>ベース命令:</b> fence</p>
+<hr>
+
+<h2>j</h2>
+<p><b>Unconditional Jump</b></p>
+<p><b>形式:</b> j offset</p>
+<p><b>説明:</b> PCをPC + offsetに設定します。</p>
+<p><b>実装:</b> jal x0, offset</p>
+<p><b>ベース命令:</b> jal</p>
+<hr>
+
+<h2>jr</h2>
+<p><b>Jump to Register</b></p>
+<p><b>形式:</b> jr rs</p>
+<p><b>説明:</b> PCをrsの内容に設定します。</p>
+<p><b>実装:</b> jalr x0, 0(rs)</p>
+<p><b>ベース命令:</b> jalr</p>
+<hr>
+
+<h2>la</h2>
+<p><b>Load Address</b></p>
+<p><b>形式:</b> la rd, symbol</p>
+<p><b>説明:</b> シンボルのアドレスをrdにロードします。</p>
+<p><b>実装:</b> auipc rd, offset[31:12]; addi rd, rd, offset[11:0]</p>
+<p><b>ベース命令:</b> auipc, addi</p>
+<hr>
+
+<h2>li</h2>
+<p><b>Load Immediate</b></p>
+<p><b>形式:</b> li rd, imm</p>
+<p><b>説明:</b> 即値immをrdにロードします。</p>
+<p><b>実装:</b> addi rd, x0, imm</p>
+<p><b>ベース命令:</b> addi</p>
+<hr>
+
+<h2>mv</h2>
+<p><b>Move</b></p>
+<p><b>形式:</b> mv rd, rs</p>
+<p><b>説明:</b> rsの値をrdにコピーします。</p>
+<p><b>実装:</b> addi rd, rs, 0</p>
+<p><b>ベース命令:</b> addi</p>
+<hr>
+
+<h2>neg</h2>
+<p><b>Negate</b></p>
+<p><b>形式:</b> neg rd, rs</p>
+<p><b>説明:</b> rsの値を反転してrdに格納します。</p>
+<p><b>実装:</b> sub rd, x0, rs</p>
+<p><b>ベース命令:</b> sub</p>
+<hr>
+
+<h2>nop</h2>
+<p><b>No Operation</b></p>
+<p><b>形式:</b> nop</p>
+<p><b>説明:</b> 何も行いません。</p>
+<p><b>実装:</b> addi x0, x0, 0</p>
+<p><b>ベース命令:</b> addi</p>
+<hr>
+
+<h2>not</h2>
+<p><b>Bitwise NOT</b></p>
+<p><b>形式:</b> not rd, rs</p>
+<p><b>説明:</b> rsのビットを反転し、結果をrdに格納します。</p>
+<p><b>実装:</b> xori rd, rs, -1</p>
+<p><b>ベース命令:</b> xori</p>
+<hr>
+
+<h2>ret</h2>
+<p><b>Return from Function</b></p>
+<p><b>形式:</b> ret</p>
+<p><b>説明:</b> 関数から復帰します。</p>
+<p><b>実装:</b> jalr x0, 0(x1)</p>
+<p><b>ベース命令:</b> jalr</p>
+<hr>
+
+<h2>seqz</h2>
+<p><b>Set if Equal to Zero</b></p>
+<p><b>形式:</b> seqz rd, rs</p>
+<p><b>説明:</b> rsがゼロの場合、rdに1を格納します。それ以外の場合は0を格納します。</p>
+<p><b>実装:</b> sltiu rd, rs, 1</p>
+<p><b>ベース命令:</b> sltiu</p>
+<hr>
+
+<h2>sgtz</h2>
+<p><b>Set if Greater Than Zero</b></p>
+<p><b>形式:</b> sgtz rd, rs</p>
+<p><b>説明:</b> rsがゼロより大きい場合、rdに1を格納します。それ以外の場合は0を格納します。</p>
+<p><b>実装:</b> slt rd, x0, rs</p>
+<p><b>ベース命令:</b> slt</p>
+<hr>
+
+<h2>sltz</h2>
+<p><b>Set if Less Than Zero</b></p>
+<p><b>形式:</b> sltz rd, rs</p>
+<p><b>説明:</b> rsがゼロ未満の場合、rdに1を格納します。それ以外の場合は0を格納します。</p>
+<p><b>実装:</b> slt rd, rs, x0</p>
+<p><b>ベース命令:</b> slt</p>
+<hr>
+
+<h2>tail</h2>
+<p><b>Tail Call</b></p>
+<p><b>形式:</b> tail imm</p>
+<p><b>説明:</b> 現在の関数を終了して、即値immで指定された関数にジャンプします。</p>
+<p><b>実装:</b> auipc x6, offset[31:12]; jalr x0, offset[11:0](x6)</p>
+<p><b>ベース命令:</b> auipc, jalr</p>
+<hr>
+
+</html>
