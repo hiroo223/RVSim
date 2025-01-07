@@ -158,7 +158,7 @@ public class MenuBarCreator {
 
         // アセンブルメニューアイテム
         JMenuItem runItem_assemble = new JMenuItem("アセンブル");
-        runItem_assemble.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_R, KeyEvent.CTRL_DOWN_MASK));
+        runItem_assemble.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_E, KeyEvent.CTRL_DOWN_MASK));
         runMenu.add(runItem_assemble);
         runItem_assemble.addActionListener(new ActionListener() {
         	@Override
@@ -191,7 +191,7 @@ public class MenuBarCreator {
 
         // リセットメニューアイテム
         JMenuItem runItem_reset = new JMenuItem("リセット");
-        runItem_reset.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_Q, KeyEvent.CTRL_DOWN_MASK));
+        runItem_reset.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_R, KeyEvent.CTRL_DOWN_MASK));
         runMenu.add(runItem_reset);
         runItem_reset.addActionListener(new ActionListener() {
             @Override
