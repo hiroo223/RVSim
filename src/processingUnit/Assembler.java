@@ -538,6 +538,8 @@ class Main_section{
         	ct.toNextLine();
         	
         }
+		
+		System.out.println("ここまではきてるよ" + ct.currentToken());
 				
 		data.tentative_count += 4; //メモリのアドレスをカウント. 仮のカウント.
 		
@@ -1176,6 +1178,8 @@ class I_type_0{
 		int func7Val = func7 << 25;
 		int func3Val = func3 << 12;
 		
+		if(imm.letter != null) //エラーメッセージ
+		
 		all = rdVal | rs1Val | immVal | func7Val | func3Val | opcode;
 		
 		data.MEMput(all);
@@ -1755,6 +1759,7 @@ class G_type{
 			
 			if(data.getData(imm.letter) != -1) {
 				imm.imm = data.getData(imm.letter);
+				
 				
 			}
 			
@@ -2724,6 +2729,7 @@ class Reg{
 		} else { 
       	data.err.add("(" + ct.currentLine() + "行目): error C4 : レジスタが来る場所にレジスタがありません。 : "+ ct.currentToken());
       	ct.toNextLine();
+      	System.out.println("errの時だよ　"+ct.currentToken());
       	return false;
       }
 		
