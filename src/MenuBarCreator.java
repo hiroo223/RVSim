@@ -748,10 +748,11 @@ public class MenuBarCreator {
         
 
         if (exe.finalPc == pc) {
-            if (!exetype) {
-                m.consoleArea.append("\nステップ数は" + exe.count + "でした。");
+        	m.consoleArea.append("\nステップ数は" + exe.count + "でした。\n" );
+        	
 
-            } else {
+            if(exetype) {
+
             	String[] values = new String[32];
                 String[] floatValues = new String[32];
 
