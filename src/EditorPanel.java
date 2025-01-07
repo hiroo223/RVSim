@@ -433,12 +433,13 @@ public class EditorPanel extends JPanel {
                                 lineEnd = text.length();
                             }
 
+                            // '#' を見つけた場合、その行の終端まで灰色に変更
                             int commentStart = text.indexOf("#", lineStart);
                             if (commentStart != -1 && commentStart < lineEnd) {
                                 doc.setCharacterAttributes(commentStart, lineEnd - commentStart, commentStyle, true);
                             }
 
-                            lineStart = lineEnd + 1;
+                            lineStart = lineEnd + 1; // 次の行に進む
                         }
 
                         // キーワードに一致する部分をハイライト
@@ -454,15 +455,29 @@ public class EditorPanel extends JPanel {
                             int index = 0;
 
                             while ((index = text.indexOf(keyword, index)) != -1) {
-                                // 前後の文字が単語境界か確認しつつ、`,`が続いても許容
-                                if ((index == 0 || !Character.isLetterOrDigit(text.charAt(index - 1))) &&
-                                    (index + keyword.length() >= text.length() || 
-                                     !Character.isLetterOrDigit(text.charAt(index + keyword.length()))) &&
-                                    (index + keyword.length() >= text.length() || 
-                                     (Character.isWhitespace(text.charAt(index + keyword.length())) || 
-                                      text.charAt(index + keyword.length()) == ','))) { 
-                                    doc.setCharacterAttributes(index, keyword.length(), highlightStyle, true);
+                                // コメント部分を無視する（競合時は灰色を優先）
+                                boolean insideComment = false;
+
+                                // コメントの開始位置を確認
+                                int commentStart = text.lastIndexOf("#", index);
+                                if (commentStart != -1 && commentStart < index) {
+                                    // キーワードがコメント内に存在する場合
+                                    insideComment = text.indexOf('\n', commentStart) == -1 || index < text.indexOf('\n', commentStart);
                                 }
+
+                                // コメント部分をスキップ
+                                if (!insideComment) {
+                                    // 前後の文字が単語境界か確認しつつ、`,`が続いても許容
+                                    if ((index == 0 || !Character.isLetterOrDigit(text.charAt(index - 1))) &&
+                                        (index + keyword.length() >= text.length() ||
+                                         !Character.isLetterOrDigit(text.charAt(index + keyword.length()))) &&
+                                        (index + keyword.length() >= text.length() ||
+                                         (Character.isWhitespace(text.charAt(index + keyword.length())) ||
+                                          text.charAt(index + keyword.length()) == ','))) {
+                                        doc.setCharacterAttributes(index, keyword.length(), highlightStyle, true);
+                                    }
+                                }
+
                                 index += keyword.length();
                             }
                         }
@@ -471,6 +486,8 @@ public class EditorPanel extends JPanel {
                     }
                 });
             }
+
+
 
 
 
